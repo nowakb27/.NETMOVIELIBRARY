@@ -1,28 +1,21 @@
 ﻿using System;
 using ApplicationTemplate.Services;
-using Microsoft.Extensions.DependencyInjection;
 
-namespace ApplicationTemplate;
-
-public class Program
+namespace ApplicationTemplate
 {
-    /// <summary>
-    /// Entry point for the MainService.  It is unlikely you will need to update this.
-    /// </summary>
-    /// <param name="args"></param>
-    private static void Main(string[] args)
+    public class Program
     {
-        try
+        public static void Main(string[] args)
         {
-            var startup = new Startup();
-            var serviceProvider = startup.ConfigureServices();
-            var service = serviceProvider.GetService<IMainService>();
+            var SEARCH = new MediaOrchestrator();
 
-            service?.Invoke();
-        }
-        catch (Exception e)
-        {
-            Console.Error.WriteLine(e);
+            Console.Write("SEARCH (TYPE 'THE' TO TEST): ");
+            var searchString = Console.ReadLine().ToLower();
+            var results = SEARCH.SearchAllMedia(searchString);
+
+            Console.WriteLine("SEARCH RESULTS:");
+            results.ForEach(Console.WriteLine);
+
         }
     }
 }
